@@ -1,10 +1,11 @@
+import 'dart:async';
 import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:path_provider/path_provider.dart';
-import 'package:record_mp3/record_mp3.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:record_mp3/record_mp3.dart';
 
 void main() => runApp(MyApp());
 
@@ -129,7 +130,7 @@ class _MyAppState extends State<MyApp> {
       statusText = "Recording...";
       recordFilePath = await getFilePath();
       isComplete = false;
-      RecordMp3.instance.start(recordFilePath, (type) {
+      RecordMp3.instance.start(recordFilePath!, (type) {
         statusText = "Record error--->$type";
         setState(() {});
       });
@@ -172,12 +173,12 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  String recordFilePath;
+  String? recordFilePath;
 
   void play() {
-    if (recordFilePath != null && File(recordFilePath).existsSync()) {
+    if (recordFilePath != null && File(recordFilePath!).existsSync()) {
       AudioPlayer audioPlayer = AudioPlayer();
-      audioPlayer.play(recordFilePath, isLocal: true);
+      audioPlayer.play(UrlSource(recordFilePath!));
     }
   }
 
