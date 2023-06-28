@@ -1,5 +1,10 @@
 buildscript {
     ext.kotlin_version = '1.8.0'
+    ext {
+       compileSdkVersion   = 33            
+       targetSdkVersion    = 33              
+       appCompatVersion    = "1.6.0"           
+    } 
     repositories {
         google()
         mavenCentral()
@@ -14,7 +19,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         // Remove jcenter from everywhere
         all { ArtifactRepository repo ->
             if (repo instanceof MavenArtifactRepository) {
